@@ -1,0 +1,15 @@
+{
+  "images" :
+  [
+    {
+      "image" : "argame00.jpg",
+      "name" : "argame"
+    },
+    {
+      "image" : "http://30.97.16.232:8887/idback.jpg",
+      "name" : "idback",
+      "size" : [8.56, 5.4],
+      "uid" : "uid-string"
+    }
+  ]
+}
