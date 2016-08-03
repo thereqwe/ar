@@ -257,18 +257,28 @@ EasyAR::samples::HelloARVideo ar;
     ar.loadFromImage("rrt.jpg");
     
     ///var/mobile/Containers/Data/Application/55FE7ADA-69A3-4FE3-A983-A9C3F80AF961/Documents/imagei
-    ar.loadFromImage([[self getIdentificationImages] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"0"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"1"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"2"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"3"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"4"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"5"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"6"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"7"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"8"] UTF8String]);
+    ar.loadFromImage([[self getIdentificationImages:@"9"] UTF8String]);
+    
     ar.start();
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
--(NSString*)getIdentificationImages
+-(NSString*)getIdentificationImages:(NSString*)idx
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"image"];
-    NSString *location = [NSString stringWithFormat:@"%@/%@",path,@"76.jpg"];
+    NSString *location = [NSString stringWithFormat:@"%@/%@.jpg",path,idx];
     return location;
 }
 

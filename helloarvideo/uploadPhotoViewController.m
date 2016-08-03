@@ -14,6 +14,8 @@
     UIButton *ui_btn_take_photo;
     UILabel *ui_lb_lat_lon;
     UIImagePickerController *imagePickerController;
+    CGFloat latitude;
+    CGFloat longitude;
 }
 
 - (void)setupUI
@@ -79,7 +81,9 @@
 {
     //定位结果
     NSLog(@"location:{维度:%f; 经度:%f; accuracy:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy);
-    ui_lb_lat_lon.text = [NSString stringWithFormat:@"{维度:%f; 经度:%f}", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy];
+    ui_lb_lat_lon.text = [NSString stringWithFormat:@"{维度:%f; 经度:%f}", location.coordinate.latitude, location.coordinate.longitude];
+    longitude = location.coordinate.longitude;
+    latitude  = location.coordinate.latitude;
 }
 
 #pragma mark - take photo
@@ -108,24 +112,32 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     manager.responseSerializer = [[AFJSONResponseSerializer alloc] init];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", @"text/json", @"application/json", @"text/javascript", @"text/plain", nil];
-    AFHTTPRequestOperation *op = [manager POST:[NSString stringWithFormat:@"%@/%@",@"http://139.129.47.4:8080",@"gpspic/insert"] parameters:@{@"guid":@"9c553730ef5b6c8c542bfd31b5e25b69",@"_os_":@"iPhone",@"_product_":@"tudou"} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *str = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
+    
+    AFHTTPRequestOperation *op = [manager POST:[NSString stringWithFormat:@"%@/%@",@"http://139.129.47.4:8080",@"gpspic/insert"] parameters:@{@"guid":@"9c553730ef5b6c8c542bfd31b5e25b69",@"_os_":@"iPhone",@"_product_":@"tudou",@"name":fileName,@"latitude":@(latitude),@"longitude":@(longitude)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         NSData *imageData = UIImageJPEGRepresentation(edit, 1);
-        
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyyMMddHHmmss";
-        NSString *str = [formatter stringFromDate:[NSDate date]];
-        NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
-        
+
         // 上传图片，以文件流的格式
-        [formData appendPartWithFileData:imageData name:@"file" fileName:fileName mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"picture" fileName:fileName mimeType:@"image/jpeg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSData *data = responseObject  ;
         // NSLog(@"%@",[[NSString alloc]initWithData:data encoding:kCFStringEncodingUTF8]);
-        if([responseObject[@"errCode"] isEqualToString:@"000"]){
+        if([(NSNumber*)responseObject[@"code"] isEqualToNumber:@0]){
             NSLog(@"get the response from server");
+            UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"采集录入成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器暂时出差~" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"err %@",error);
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器暂时出去玩了~" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
     }];
     
 }

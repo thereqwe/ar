@@ -6,10 +6,11 @@
 
 #import <UIKit/UIKit.h>
 #import "OpenGLView.h"
-
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 @interface ViewController : UIViewController
 
 @property(nonatomic, strong) OpenGLView *glView;
-
+@property (nonatomic,strong) AMapLocationManager *locationManager;
 @end
 
