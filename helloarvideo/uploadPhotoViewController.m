@@ -45,6 +45,7 @@
     [self setupUI];
     [AMapServices sharedServices].apiKey = @"e590b8299c0475aaff1e3d58e3c22964";
     [self configLocationManager];
+    [self startSerialLocation];
 }
 
 #pragma mark - get location
@@ -119,7 +120,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     NSString *fileName = [NSString stringWithFormat:@"%@.jpg", str];
     
     AFHTTPRequestOperation *op = [manager POST:[NSString stringWithFormat:@"%@/%@",@"http://139.129.47.4:8080",@"gpspic/insert"] parameters:@{@"guid":@"9c553730ef5b6c8c542bfd31b5e25b69",@"_os_":@"iPhone",@"_product_":@"tudou",@"name":fileName,@"latitude":@(latitude),@"longitude":@(longitude)} constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        NSData *imageData = UIImageJPEGRepresentation(edit, 1);
+        NSData *imageData = UIImageJPEGRepresentation(edit, 0.5);
 
         // 上传图片，以文件流的格式
         [formData appendPartWithFileData:imageData name:@"picture" fileName:fileName mimeType:@"image/jpeg"];
@@ -130,6 +131,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
             NSLog(@"get the response from server");
             UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"采集录入成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"new_data" object:nil];
         }else{
             UIAlertView* alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"服务器暂时出差~" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];

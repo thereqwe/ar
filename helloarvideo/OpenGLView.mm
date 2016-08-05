@@ -267,7 +267,7 @@ EasyAR::samples::HelloARVideo ar;
     ar.loadFromImage([[self getIdentificationImages:@"7"] UTF8String]);
     ar.loadFromImage([[self getIdentificationImages:@"8"] UTF8String]);
     ar.loadFromImage([[self getIdentificationImages:@"9"] UTF8String]);
-    
+    ar.loadFromImage([[self getIdentificationImages:@"76"] UTF8String]);
     ar.start();
     self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkCallback:)];
     [self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];

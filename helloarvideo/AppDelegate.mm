@@ -42,7 +42,7 @@
     [middle_navi pushViewController:vc3 animated:YES];
     
     UITabBarController *tabVc = [[UITabBarController alloc]init];
-    tabVc.viewControllers =  @[left_navi,middle_navi,right_navi];
+    tabVc.viewControllers =  @[right_navi,left_navi,middle_navi];
     window.rootViewController = tabVc;
     [window makeKeyAndVisible];
     return YES;
