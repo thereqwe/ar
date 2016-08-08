@@ -66,6 +66,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B80D04791D5477A800DA090B /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B823D7AF1D4F3E1700D68D75 /* uploadPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uploadPhotoViewController.h; sourceTree = "<group>"; };
 		B823D7B01D4F3E1700D68D75 /* uploadPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uploadPhotoViewController.m; sourceTree = "<group>"; };
 		B823D7B21D4F401B00D68D75 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -249,6 +250,7 @@
 		F1D13B9E1C040394008F72E2 = {
 			isa = PBXGroup;
 			children = (
+				B80D04791D5477A800DA090B /* PrefixHeader.pch */,
 				B88F39931D4F4BF000F203DB /* AMapLocationKit.framework */,
 				B88F39941D4F4BF000F203DB /* AMapFoundationKit.framework */,
 				B823D7C71D4F47DC00D68D75 /* libz.tbd */,

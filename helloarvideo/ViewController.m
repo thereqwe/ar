@@ -32,7 +32,7 @@
     
     ui_view_now_saved_img = [UIView new];
     ui_view_now_saved_img.frame = (CGRect){0,80,44,450};
-    ui_view_now_saved_img.backgroundColor = RED;
+//    ui_view_now_saved_img.backgroundColor = RED;
     [self.view addSubview:ui_view_now_saved_img];
 }
 
@@ -60,7 +60,7 @@
 - (void)configLocationManager
 {
     self.locationManager = [[AMapLocationManager alloc] init];
-    
+
     [self.locationManager setDelegate:self];
     
     [self.locationManager setPausesLocationUpdatesAutomatically:NO];
@@ -103,7 +103,7 @@
 /**
  *  根据地址获取识别图
  *
- *  @param location <#location description#>
+ *  @param location location description
  */
 - (void)getImgsWithLocation:(CLLocation *)location
 {
